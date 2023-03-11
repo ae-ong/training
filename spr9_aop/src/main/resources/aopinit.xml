@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+	<!-- 핵심 로직클래스: target -->
+	<bean id="targetBean" class="pack.MessageImpl">
+		<property name="name" value="금요일" />
+	</bean>
+	
+	<!-- AOP 관련 -->
+	<!-- Advice(Aspect 클래스): target으로 weaving -->
+	<bean id="loggingAdvice" class="pack.LoggingAdvice" />
+	
+	<!-- Proxy를 통한 간접 접근 -->
+	<bean id="proxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="target"><!-- target은 핵심로직 -->
+			<ref bean="targetBean"/>
+		</property>
+		<property name="interceptorNames">
+			<list><!-- value값이 여러개일 경우 list로 감싸주기 -->
+				<value>hiAdvisor</value>	<!-- advisor 기술 -->
+			</list>
+		</property>
+	</bean>
+
+	<!-- Advisor (Advice+pointcut): advisor과 pointcut을 연결하는 역할  -->
+	<bean id="hiAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<property name="advice">
+			<ref bean="loggingAdvice"/>
+		</property>
+		<property name="pointcut">
+			<bean class="org.springframework.aop.support.JdkRegexpMethodPointcut">
+				<property name="pattern">
+					<!-- 정규표현식 사용 -->
+					<value>.*sayHi*.</value>
+				</property>
+			</bean>
+		</property>
+	</bean>
+</beans>

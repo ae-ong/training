@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+	<!-- 일반 객체 생성: 핵심 로직 -->
+	<bean id="logicImpl" class="aop1.LogicImpl">
+		<constructor-arg>
+			<ref bean="articleDao"/>
+		</constructor-arg>
+	</bean>
+	<bean id="articleDao" class="aop1.ArticleDao" />
+	
+	<!-- AOP 설정 -->
+	<!-- advice -->
+	<bean id="profileAdvice" class="aop1.ProfileAdvice" />
+	<!-- 환경 잡기 -->
+	<aop:config>
+		<aop:aspect ref="profileAdvice">
+			<!-- expression: 대상이 누구냐...정규표현식과 다름> Spring: 27 -->
+			<!-- LogicInter의 서브 클래스는 모두 해당 되고 파라미터가가 0개 이상인 메서드에는 모두 해당 -->
+			<!-- LogicInter의 모든 메서드 또는 public void selectAll() 이 대상이 됨 -->
+			<!-- execution(* *..*LogicInter*.*(..)) or execution(public void selectAll()): 얘 자체가 pointcut -->
+			<!-- 얘에 의해 필터링 된 애들이 joinpoint가 되는 것 -->
+			<aop:pointcut expression="execution(* *..*LogicInter*.*(..)) or execution(public void selectAll())" id="poi"/>
+			<aop:around method="kbs" pointcut-ref="poi"/>
+		</aop:aspect>
+	</aop:config>
+</beans>
