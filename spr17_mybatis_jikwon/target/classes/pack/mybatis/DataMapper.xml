@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dev">
+
+	<select id="selectDataAll" resultType="pack.model.JikwonDto">
+		select jikwon_no, jikwon_name, ifnull(buser_name, '무소속') as buser_name,
+		substr(jikwon_ibsail, 1, 4) as jikwon_year
+		from jikwon left outer join buser on jikwon.buser_num = buser.buser_no
+	</select>
+
+	<!-- 부서별 최대 급여 -->
+	<select id="maxPay" resultType="pack.model.JikwonDto">
+		select ifnull((select buser_name from buser where buser_num=buser_no),
+		'무소속') as buser_name, jikwon_name, jikwon_pay
+		from jikwon a where a.jikwon_pay=(select max(b.jikwon_pay) from jikwon b
+		where a.buser_num=b.buser_num) order by buser_num
+	</select>
+	
+</mapper>
