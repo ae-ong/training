@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+** 요청 파라미터 연습 **<br/>
+<a href="abc/login?type=admin">관리자</a><br/>
+<a href="abc/login?type=user">회원</a><br/>
+<a href="abc/login">파라미터 없음</a><br/>
+<br/>
+<form action="abc/login" method="post">
+data : <input type="text" name="type" value="user">
+<input type="submit" value="전송1">
+</form>
+<hr/>
+<form action="def/korea" method="get">
+data : <input type="text" name="name" value="tom">
+<input type="submit" value="전송2">
+</form>
+<br/>
+<form action="def/usa" method="get">
+data : <input type="text" name="name" value="james">
+<input type="submit" value="전송3">
+</form>
+<br/>
+<form action="ent/hive/singer/bts">
+신곡 : <input type="text" name="title" value="다이너마이트">
+<input type="submit" value="전송">
+</form>
+<br/>
+<form action="ent/yg/singer/blackpink">
+신곡 : <input type="text" name="title" value="아이스크림">
+<input type="submit" value="전송">
+</form>
+
+</body>
+</html>
