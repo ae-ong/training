@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="selectServiceImpl" class="pack.controller.SelectServiceImpl" ><!-- 서브클래스로 객체 생성 -->
+	<constructor-arg>
+	<ref bean="dataDaoImpl"/>
+	</constructor-arg>
+	</bean>
+	<bean name="dataDaoImpl" class="pack.model.DataDaoImpl" />
+</beans>

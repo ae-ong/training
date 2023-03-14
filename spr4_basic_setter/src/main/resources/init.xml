@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- 방법1 : 일반적인 setter injection -->
+	<!-- <bean id="myProcessImpl" class="pack.controller.MyProcessImpl"> <property 
+		name="nai" value="23" /> //setter메소드의 이름과 일치해야함, value는 대입할 변수 <property 
+		name="name" value="홍당무" /> <property name="showData" ref="showData"/> </bean> 
+		<bean id="showData" class="pack.model.ShowData"/> -->
+
+	<!-- 방법2 : 일반적인 setter injection -->
+	<!-- 
+	<bean id="myProcessImpl" class="pack.controller.MyProcessImpl">
+		<property name="nai">
+			<value>28</value>
+		</property>
+		<property name="name">
+			<value>홍당근</value>
+		</property>
+		<property name="showData">
+			<bean class="pack.model.ShowData" />
+		</property>
+	</bean>
+	 -->
+	 
+	 <!-- 방법3 : XML namespace 사용 -->
+	 <bean id="myProcessImpl" class="pack.controller.MyProcessImpl"
+	 p:nai="33" 
+	 p:name="홍성환"
+	 p:showData-ref="showData"
+	 />
+	 <bean id="showData" class="pack.model.ShowData"/>
+</beans>

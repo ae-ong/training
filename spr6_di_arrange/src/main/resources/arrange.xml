@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="mImpl" class="pack.MessageImpl" scope="singleton"><!-- **싱글톤이 기본 스코프 -->
+		<!-- constructor injection -->
+		<constructor-arg index="1" type="java.lang.String" value="안녕하세요" />
+		<constructor-arg index="0" type="String">
+			<value>반가워요</value>
+		</constructor-arg><!-- index가 없으면 순서대로 매핑 -->
+		<constructor-arg index="2" type="int" value="2000" />
+		<constructor-arg index="3" type="pack.MyInter">
+		<ref bean="myInfo"/> <!-- 또는 ourInfo -->
+		</constructor-arg>
+		<!-- setter injection -->
+		<property name="spec" value="정보처리자격증"/>
+		<property name="fileInter">
+		<ref bean="outFileInterImpl"/>
+		</property>
+	</bean>
+	<bean id="myInfo" class="pack.MyInfo"/>
+	<bean id="ourInfo" name="abc" class="pack.OurInfo"/>
+	<bean id="outFileInterImpl" class="other.OutFileInterImpl">
+	<property name="filePath" value="c:/work2/nice.txt"/>
+	</bean>
+</beans>
