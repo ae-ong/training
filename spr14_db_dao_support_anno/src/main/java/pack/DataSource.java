@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DataSource extends DriverManagerDataSource{
 	public DataSource() {
-		// DrivetManagerDataSource
+		// DriveManagerDataSource
 		setDriverClassName("org.mariadb.jdbc.Driver");
 		setUrl("jdbc:mariadb://127.0.0.1:3306/test");
 		setUsername("root");

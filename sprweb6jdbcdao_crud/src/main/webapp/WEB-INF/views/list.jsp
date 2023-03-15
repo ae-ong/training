@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +10,8 @@
 </head>
 <body>
 <h3>회원 목록(@MVC : JdbcDaoSupport 방법)</h3>
+<a href="insert">추가</a>
+<br/>
 <c:if test="${fn:length(list) >0}">
 <table border="1">
 	<tr><th>아이디</th><th>회원명</th></tr>
@@ -21,7 +24,6 @@
 </table>
 </c:if>
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
 건수 : ${fn:length(list) }
 <br/>
 </body>
