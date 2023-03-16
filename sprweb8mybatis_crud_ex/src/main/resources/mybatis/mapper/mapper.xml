@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pack.model.DataMappingInterface">
+	<select id="selectAll" resultType="pack.model.JikwonDto">
+		select jikwon_no, jikwon_name, buser_name, jikwon_jik, jikwon_ibsail from jikwon INNER JOIN buser ON buser_num=buser_no
+	</select>
+	<select id="selectPart" parameterType="pack.controller.FormBean" resultType="pack.model.JikwonDto">
+		SELECT jikwon_no, jikwon_name, buser_name, jikwon_jik, jikwon_ibsail FROM jikwon INNER JOIN buser ON buser_num=buser_no WHERE buser_name=#{searchValue}
+	</select>
+	<select id="buserName" resultType="pack.model.JikwonDto">
+		select buser_name from buser
+	</select>
+	<select id="buser" parameterType="pack.controller.FormBean" resultType="pack.model.JikwonDto">
+		select * from buser where buser_name=#{bname}
+	</select>
+</mapper>
