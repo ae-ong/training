@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pack.model.DataMappingInterface">
+	<select id="selectList" resultType="pack.model.Board">
+		select * from springboard order by num desc
+	</select>
+	<select id="selectSearch" parameterType="pack.controller.BoardBean" resultType="pack.model.Board">
+		select * from springboard where ${searchName} like concat('%', #{searchValue}, '%') order by num desc
+	</select>
+	<select id="selectOne" parameterType="String" resultType="pack.model.Board">
+		select * from springboard where num=#{num}
+	</select>
+	<insert id="insert" parameterType="pack.controller.BoardBean">
+		insert into springboard(num,author,title,content,bwrite,readcnt) 
+		values((select max(ali.num) + 1 from springboard ali), #{author}, #{title}, #{content}, now(), 0)
+	</insert>
+	<update id="updateReadcnt" parameterType="string">
+		update springboard set readcnt=readcnt+1 where num=#{num}
+	</update>
+	<update id="update" parameterType="pack.controller.BoardBean">
+		update springboard set title=#{title}, author=#{author}, content=#{content} where num=#{num}
+	</update>
+	<delete id="delete" parameterType="string">
+		delete from springboard where num=#{num}
+	</delete>
+</mapper>
