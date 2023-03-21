@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	jQuery("#btnSingle").click(function(){
+		$("#showData").html("");
+		$.ajax({
+			type:"get",
+			url:"list",
+			data:{"name":"oscar"},
+			dataType:"json",
+			success:function(data){
+				let str = data.name + "<br/>";
+				str += data.skills[0] + " ";
+				str += data.skills[1];
+				$("#showData").append(str);
+			},
+			error:function(){
+				$("#showData").html("<b>에러 발생</b>");
+			}
+		});
+	});
+	
+	jQuery("#btnMulti").click(function(){
+		$("#showData").empty();
+		$.ajax({
+			type:"get",
+			url:"list2",
+			dataType:"json",
+			success:function(data){
+				let str = "<table>";
+				let list = data.datas;
+				console.log(list.length);
+				$(list).each(function(idx, objArr){
+					str += "<tr>";
+					str += "<td>" + objArr["name"] + "</td>" ;
+					str += "<td>" + objArr.age + "</td>" ;
+					str += "</tr>";
+				});
+				str += "</table>";
+				$("#showData").append(str);
+			},
+			error:function(){
+				$("#showData").html("<b>에러 발생</b>");
+			}
+		});		
+	});
+});
+
+</script>
+</head>
+<body>
+json 읽기<br/>
+<input type="button" value="한 개의 자료 읽기" id="btnSingle"><br/>
+<input type="button" value="여러 개의 자료 읽기" id="btnMulti"><br/>
+<hr/>
+<div id="showData"></div>
+</body>
+</html>

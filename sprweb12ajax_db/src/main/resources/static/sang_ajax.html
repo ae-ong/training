@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#btnSangpum").click(function(){
+		//alert("1");
+		$.ajax({
+			type:"get",
+			url:"sangpum",
+			dataType:"json",
+			success:function(sangpumDatas){
+				let str = "";
+				let datas = sangpumDatas.datas;
+				$(datas).each(function(idx, obj){
+					str += "<tr>";
+					str += "<td>" + obj.code + "</td>";
+					str += "<td>" + obj.sang + "</td>";
+					str += "<td>" + obj.su + "</td>";
+					str += "<td>" + obj["dan"] + "</td>";
+					str += "</tr>";
+				});
+				$("tbody").html(str);
+			},
+			error:function(){
+				$("#showErr").text("에러");
+			}
+		});
+	});
+});
+</script>
+</head>
+<body>
+<h3>상품 정보</h3>
+이런 상품 저런 상품
+<button id="btnSangpum">sangdata 보고싶어</button>
+<br/><br/>
+<table>
+	<thead>
+		<tr><th>코드</th><th>품명</th><th>수량</th><th>단가</th></tr>
+	</thead>
+	<tbody>
+		
+	</tbody>
+</table>
+<div id="showErr"></div>
+</body>
+</html>
