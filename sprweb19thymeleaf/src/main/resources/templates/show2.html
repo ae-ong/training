@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h3>상품 자료 출력</h3>
+<table>
+	<tr><th>index</th><th>id</th><th>sangpum</th><th>price</th><th>regdate</th></tr>
+	<tr th:each="dto, status:${dtos}"> <!-- 인덱스 필요 시 status 추가 -->
+		<td th:text="${status.index}"></td>
+		<td th:text="${dto.id}"></td>
+		<td th:text="${dto.name}"></td>
+		<td th:text="${dto.price}"></td>
+		<td>[[${dto.regDate}]]</td>
+	</tr>
+</table>
+</body>
+</html>

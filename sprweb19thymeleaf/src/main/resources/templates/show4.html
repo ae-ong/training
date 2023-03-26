@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- 
+<link rel="stylesheet" href="/css/style.css" />
+ -->
+ <link rel="stylesheet"  th:href="@{/css/style.css}" />
+</head>
+<body>
+<h2>* 수신 결과 *</h2>
+<div th:text="${arg1}">결과 출력 장소</div>
+<div>[[${arg2}]]</div>
+</body>
+</html>

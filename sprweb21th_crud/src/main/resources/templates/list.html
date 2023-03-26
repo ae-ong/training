@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h3>* 회원 정보(Thymeleaf) *</h3>
+<a th:href="@{/insert}">추가</a>
+<br/>
+<table border="1">
+	<tr>
+		<th>번호</th><th>이름</th><th>주소</th><th>수정/삭제</th>
+	</tr>
+	<th:block th:if="${datas.size > 0}">
+		<tr th:each="data:${datas}">
+			<td>[[${data.num }]]</td>
+			<td>[[${data.name }]]</td>
+			<td>[[${data.addr }]]</td>
+			<td> <!-- templates 엔진은 서버에서 만들어져 클라이언트로 넘어옴 -->
+				<a th:href="@{/update(num=${data.num})}">수정</a> /
+				<a th:href="@{/delete(num=${data.num})}">삭제</a>
+			</td>
+		</tr>
+	</th:block>
+</table>
+<br/>
+<a href="index.html">메인으로</a>
+</body>
+</html>

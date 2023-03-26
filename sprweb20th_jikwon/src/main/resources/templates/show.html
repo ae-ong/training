@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h3>* 직원 목록(@MVC + MyBatis Annotation + Thymeleaf) *</h3>
+<table border="1">
+	<tr>
+	<th>번호</th><th>직원번호</th><th>직원명</th><th>직급</th><th>연봉</th>
+	</tr>
+	<th:block th:if="${datas.size > 0}">
+		<tr th:each="data, numStatus:${datas}">
+			<!-- 
+			<td th:text="${numStatus.index + 1}">현재 인덱스 : 0부터 출발이 기본</td>
+			 -->
+			 <td th:text="${numStatus.count}">카운트 인덱스 : 1부터 출발이 기본</td>
+			<td th:text="${data.jikwon_no}">직원번호</td>
+			<td>[[${data.jikwon_name}]]</td>
+			<td th:text="${data.jikwon_jik}">직급</td>
+			<!-- 
+			<td th:text="${data.jikwon_pay}">연봉</td>
+			 -->
+			 <td>[[${#numbers.formatInteger(data.jikwon_pay, 3, 'COMMA')}]]</td>
+		</tr>
+	</th:block>
+	
+	<tr>
+		<td colspan="5">
+			건수 : [[${datas.size}]]
+		</td>
+	</tr>
+	<tr>
+		<td colspan="5">
+			<form action="/search" method="get">
+				직원명 : <input type="text" name="searchValue"/>
+				<input type="submit" value="검 색">
+			</form>
+		</td>
+	</tr>
+</table>
+</body>
+</html>
